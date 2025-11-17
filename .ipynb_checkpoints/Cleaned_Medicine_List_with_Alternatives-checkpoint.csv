@@ -1,0 +1,94 @@
+Medicine Name,Composition,Use Case,Type,Drug Class
+Dolo 650,Paracetamol 650mg,"Fever, Headache, Mild to Moderate Pain",Tablet,Analgesic / Antipyretic
+Calpol,Paracetamol 500mg,"Fever, Body Ache, Cold-related Pain",Tablet / Syrup,Analgesic / Antipyretic
+Crocin Advance,Paracetamol 500mg,"Fever, Headache, Mild Pain",Tablet,Analgesic / Antipyretic
+Brufen,Ibuprofen 400mg,"Fever, Toothache, Muscle Pain",Tablet / Suspension,NSAID
+Voveran,Diclofenac Sodium,"Arthritis, Joint Pain, Swelling",Tablet / Gel / Injection,NSAID
+Paracetamol,Paracetamol 500mg/650mg,"Fever, Headache, Body Pain",Tablet / Syrup,OPIOID ANALGESICS
+Ibuprofen,Ibuprofen 400mg,"Pain Relief, Inflammation, Fever",Tablet,OPIOID ANALGESICS
+Diclofenac,Diclofenac Sodium 50mg,"Inflammation, Post-surgery Pain, Swelling",Tablet / Gel / Injection,Acetic acid derivatives and related substances
+Liv 52,"Herbal (Capers, Chicory, etc.)","Liver health, appetite stimulant",Tablet / Syrup,Herbal Liver Tonic
+Shelcal,Calcium Carbonate + Vitamin D3,"Calcium deficiency, bone health",Tablet,Calcium Supplement
+Dexorange,Iron + Folic Acid + Vitamin B12,"Anemia, iron deficiency",Syrup / Capsule,Iron Supplement + Vitamins
+Iron Folic,Iron + Folic Acid,"Iron supplementation, pregnancy",Tablet,Iron + Folic Acid
+Calcium D3,Calcium + Vitamin D3,"Bone health, osteoporosis prevention",Chewable Tablet,Calcium + Vitamin D3
+Himalaya Liv,"Herbal (Capers, Chicory)","Liver support, detoxification",Tablet / Syrup,Herbal Liver Tonic
+Duphaston,Dydrogesterone 10mg,"Menstrual disorders, infertility",Tablet,Progestin (Dydrogesterone)
+Dydrogesterone,Dydrogesterone,"Hormonal support, irregular cycles",Tablet,Pregnadien derivatives
+Candid,Clotrimazole 1%,Fungal infections,Powder / Cream,Topical Antifungal
+Flutivate,Fluticasone Propionate 0.05%,"Dermatitis, eczema, allergies",Cream,Topical Corticosteroid
+Bepanthol,Dexpanthenol 5%,"Dry skin, diaper rash",Cream,Skin Protectant (Provitamin B5)
+Calamine Lotion,Calamine + Zinc Oxide,"Itching, insect bites, sunburn",Lotion,Zinc and/or zinc compound-containing product
+Clotrimazole,Clotrimazole 1%,Fungal infections,Cream / Vaginal Tablet,Imidazole and triazole derivatives
+Salicylic Acid,Salicylic Acid 2% / 6%,"Acne, warts, dandruff",Ointment / Lotion / Gel,Ketone-containing product
+Tretinoin,Tretinoin,"Acne, Anti-aging",Cream,Retinoids for topical use in acne
+Adapalene,Adapalene 0.1%,"Acne, blackheads",Gel,Retinoids for topical use in acne
+Permethrin,Permethrin 5%,"Scabies, lice",Cream / Lotion,PEDICULICIDES
+Alprazolam,Alprazolam (0.25mg / 0.5mg / 1mg),"Anxiety, Panic Disorders",Tablet,BENZODIAZEPINE DERIVATIVE SEDATIVES/HYPNOTICS
+Clonazepam,Clonazepam (0.25mg / 0.5mg / 1mg),"Seizures, Panic Attacks, Anxiety",Tablet,BENZODIAZEPINE DERIVATIVE SEDATIVES/HYPNOTICS
+Diazepam,Diazepam (2mg / 5mg / 10mg),"Anxiety, Muscle Spasms, Alcohol Withdrawal",Tablet / Injection,BENZODIAZEPINE DERIVATIVE SEDATIVES/HYPNOTICS
+Etizolam,Etizolam (0.25mg / 0.5mg / 1mg),"Anxiety, Insomnia, Panic Attacks",Tablet,Anxiolytic (Thienodiazepine)
+Escitalopram,Escitalopram Oxalate (5mg / 10mg / 20mg),"Depression, Anxiety, OCD",Tablet,Selective serotonin re-uptake inhibitor-containing product
+Fluoxetine,Fluoxetine Hydrochloride (10mg / 20mg),"Depression, OCD, Bulimia Nervosa",Capsule,"ANTIDEPRESSANTS,OTHER"
+Sertraline,Sertraline Hydrochloride (25mg / 50mg / 100mg),"Depression, PTSD, Panic Disorder",Tablet,Feeding and Eating Disorders
+Paroxetine,Paroxetine Hydrochloride (12.5mg / 25mg),"Depression, Panic Disorder, Anxiety",Tablet,Feeding and Eating Disorders
+Quetiapine,Quetiapine Fumarate (25mg / 50mg / 100mg / 300mg),"Schizophrenia, Bipolar Disorder",Tablet,"ANTIPSYCHOTICS,OTHER"
+Olanzapine,Olanzapine (2.5mg / 5mg / 10mg),"Bipolar Disorder, Schizophrenia",Tablet / Orodispersible Tablet,Olanzapine
+Risperidone,Risperidone (1mg / 2mg / 4mg),"Psychosis, Bipolar, Autism-related Irritability",Tablet,"ANTIPSYCHOTICS,OTHER"
+Haloperidol,Haloperidol (0.5mg / 5mg / 10mg),"Schizophrenia, Tics, Delirium",Tablet / Injection,"ANTIPSYCHOTICS,OTHER"
+Aripiprazole,Aripiprazole (5mg / 10mg / 15mg),"Schizophrenia, Depression (Adjunct), Bipolar",Tablet,"ANTIPSYCHOTICS,OTHER"
+Mirtazapine,Mirtazapine (15mg / 30mg),"Depression with Insomnia, Appetite Stimulation",Tablet,Histamine H1 receptor antagonist-containing product
+Trazodone,Trazodone Hydrochloride (25mg / 50mg / 100mg),"Depression, Insomnia",Tablet,Triazolopyridine-containing product
+Amitriptyline,Amitriptyline Hydrochloride (10mg / 25mg / 75mg),"Depression, Neuropathic Pain, Migraine",Tablet,Amitriptyline
+Propranolol,Propranolol Hydrochloride (10mg / 40mg / 80mg),"Performance Anxiety, BP, Migraine Prevention",Tablet,"Beta blocking agents, non-selective"
+Zolpidem,Zolpidem Tartrate (5mg / 10mg),"Insomnia, Short-term Sleep Disorder",Tablet / Sublingual Tablet,"SEDATIVES/HYPNOTICS,OTHER"
+Melatonin,Melatonin 3mg / 5mg,"Sleep Disorders, Jet Lag, Insomnia",Tablet / Capsule,HERBS/ALTERNATIVE THERAPIES
+Flutivate,Fluticasone Propionate 0.05%,"Dermatitis, eczema, allergies",Cream,Topical Corticosteroid
+Bepanthol,Dexpanthenol 5%,"Dry skin, diaper rash",Cream,Skin Protectant (Provitamin B5)
+Calamine Lotion,Calamine + Zinc Oxide,"Itching, insect bites, sunburn",Lotion,Zinc and/or zinc compound-containing product
+Clotrimazole,Clotrimazole 1%,Fungal infections,Cream / Vaginal Tablet,Imidazole and triazole derivatives
+Salicylic Acid,Salicylic Acid 2% / 6%,"Acne, warts, dandruff",Ointment / Lotion / Gel,Ketone-containing product
+Tretinoin,Tretinoin,"Acne, Anti-aging",Cream,Retinoids for topical use in acne
+Adapalene,Adapalene 0.1%,"Acne, blackheads",Gel,Retinoids for topical use in acne
+Permethrin,Permethrin 5%,"Scabies, lice",Cream / Lotion,PEDICULICIDES
+Alprazolam,Alprazolam (0.25mg / 0.5mg / 1mg),"Anxiety, Panic Disorders",Tablet,BENZODIAZEPINE DERIVATIVE SEDATIVES/HYPNOTICS
+Clonazepam,Clonazepam (0.25mg / 0.5mg / 1mg),"Seizures, Panic Attacks, Anxiety",Tablet,BENZODIAZEPINE DERIVATIVE SEDATIVES/HYPNOTICS
+Diazepam,Diazepam (2mg / 5mg / 10mg),"Anxiety, Muscle Spasms, Alcohol Withdrawal",Tablet / Injection,BENZODIAZEPINE DERIVATIVE SEDATIVES/HYPNOTICS
+Etizolam,Etizolam (0.25mg / 0.5mg / 1mg),"Anxiety, Insomnia, Panic Attacks",Tablet,Anxiolytic (Thienodiazepine)
+Escitalopram,Escitalopram Oxalate (5mg / 10mg / 20mg),"Depression, Anxiety, OCD",Tablet,Selective serotonin re-uptake inhibitor-containing product
+Fluoxetine,Fluoxetine Hydrochloride (10mg / 20mg),"Depression, OCD, Bulimia Nervosa",Capsule,"ANTIDEPRESSANTS,OTHER"
+Sertraline,Sertraline Hydrochloride (25mg / 50mg / 100mg),"Depression, PTSD, Panic Disorder",Tablet,Feeding and Eating Disorders
+Paroxetine,Paroxetine Hydrochloride (12.5mg / 25mg),"Depression, Panic Disorder, Anxiety",Tablet,Feeding and Eating Disorders
+Quetiapine,Quetiapine Fumarate (25mg / 50mg / 100mg / 300mg),"Schizophrenia, Bipolar Disorder",Tablet,"ANTIPSYCHOTICS,OTHER"
+Olanzapine,Olanzapine (2.5mg / 5mg / 10mg),"Bipolar Disorder, Schizophrenia",Tablet / Orodispersible Tablet,Olanzapine
+Risperidone,Risperidone (1mg / 2mg / 4mg),"Psychosis, Bipolar, Autism-related Irritability",Tablet,"ANTIPSYCHOTICS,OTHER"
+Haloperidol,Haloperidol (0.5mg / 5mg / 10mg),"Schizophrenia, Tics, Delirium",Tablet / Injection,"ANTIPSYCHOTICS,OTHER"
+Aripiprazole,Aripiprazole (5mg / 10mg / 15mg),"Schizophrenia, Depression (Adjunct), Bipolar",Tablet,"ANTIPSYCHOTICS,OTHER"
+Mirtazapine,Mirtazapine (15mg / 30mg),"Depression with Insomnia, Appetite Stimulation",Tablet,Histamine H1 receptor antagonist-containing product
+Trazodone,Trazodone Hydrochloride (25mg / 50mg / 100mg),"Depression, Insomnia",Tablet,Triazolopyridine-containing product
+Amitriptyline,Amitriptyline Hydrochloride (10mg / 25mg / 75mg),"Depression, Neuropathic Pain, Migraine",Tablet,Amitriptyline
+Propranolol,Propranolol Hydrochloride (10mg / 40mg / 80mg),"Performance Anxiety, BP, Migraine Prevention",Tablet,"Beta blocking agents, non-selective"
+Zolpidem,Zolpidem Tartrate (5mg / 10mg),"Insomnia, Short-term Sleep Disorder",Tablet / Sublingual Tablet,"SEDATIVES/HYPNOTICS,OTHER"
+Melatonin,Melatonin 3mg / 5mg,"Sleep Disorders, Jet Lag, Insomnia",Tablet / Capsule,HERBS/ALTERNATIVE THERAPIES
+Lantus,Insulin Glargine,Long-acting insulin for Type 1 and Type 2,Injection,Human insulin-containing product
+Insulin Glargine,Insulin Glargine,Maintains baseline blood sugar,Injection,"Insulins and analogues for injection, long-acting"
+Basalog,Insulin Glargine,Long-acting insulin for glucose control,Injection,Insulin Glargine (Long-acting)
+Sinarest,Paracetamol + Chlorpheniramine + Phenylephrine,"Cold, Fever, Nasal Congestion",Tablet / Syrup,Antihistamine + Decongestant + Analgesic
+Cetirizine,Cetirizine Hydrochloride,"Allergic Rhinitis, Sneezing, Runny Nose",Tablet / Syrup,"ANTIHISTAMINES,PIPERAZINE"
+Cheston Cold,Paracetamol + Chlorpheniramine + Phenylephrine,"Cold, Sinus Congestion, Fever",Tablet / Syrup,Antihistamine + Decongestant + Cough Suppressant
+Azeflo,Fluticasone + Azelastine,"Nasal Allergy, Sneezing, Congestion",Nasal Spray,Steroid + Antihistamine Nasal Spray
+T-Minic,Chlorpheniramine + Phenylephrine,"Cold, Nasal Congestion (Children)",Drops / Syrup,Antihistamine + Decongestant
+Zyrtec,Cetirizine,"Allergies, Sneezing, Runny Nose",Tablet / Syrup,"ANTIHISTAMINES,PIPERAZINE"
+Duonase,Fluticasone + Azelastine,"Nasal Allergy, Allergic Rhinitis",Nasal Spray,Steroid + Antihistamine Nasal Spray
+Digene,Magnesium Hydroxide + Aluminium Hydroxide + Simethicone,"Acidity, Gas, Heartburn",Chewable Tablet / Suspension,Unknown
+Gelusil,Magnesium Hydroxide + Aluminium Hydroxide + Simethicone,"Indigestion, Gas, Hyperacidity",Suspension / Chewable Tablet,Antacids with antiflatulents
+Rantac,Ranitidine,"Hyperacidity, Ulcers, Gas",Tablet / Syrup,H2 Receptor Blocker (Antacid)
+Pan D,Pantoprazole + Domperidone,"Acidity with Nausea, Gastritis",Capsule,PPI + Prokinetic
+Esomac,Esomeprazole,"GERD, Acid Reflux, Indigestion",Capsule,Proton Pump Inhibitor (PPI)
+Zinetac,Ranitidine,"Heartburn, Acidity",Tablet,H2 Receptor Blocker (Antacid)
+Nexpro,Esomeprazole,"Ulcers, Reflux, Gastritis",Tablet,Proton Pump Inhibitor (PPI)
+Domstal,Domperidone,"Vomiting, Gastric Fullness",Tablet / Suspension,Antiemetic (Prokinetic)
+Ondem,Ondansetron,"Vomiting, Motion Sickness",Tablet / Syrup / Injection,Antiemetic (5-HT3 Antagonist)
+Emeset,Ondansetron,"Nausea, Vomiting",Tablet / Oral Dispersible / Injection,Antiemetic (5-HT3 Antagonist)
+Looz,Lactulose,"Constipation, Liver Cirrhosis",Syrup,Laxative (Lactulose)
+Duphalac,Lactulose,"Constipation, Softens Stools",Syrup,Laxative (Lactulose)

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background: #E3F2FD;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background: #ADD8E6;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10px;
+            position: fixed;
+            height: 100%;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar img.logo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 15px;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            color: #fff;
+            width: 100%;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .sidebar a {
+            color: black;
+            text-decoration: none;
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background: #0B5ED7;
+        }
+
+        .sidebar a span {
+            margin-left: 10px;
+        }
+
+        .content {
+            margin-left: 220px;
+            flex: 1;
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            background: #35cedc71;
+            border: none;
+            width: 100%;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #2a9ab0ff;
+        }
+
+        .btn-meet {
+            background-color: #0B5ED7;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 12px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-meet:hover {
+            background-color: #094bbf;
+            color: white;
+        }
+
+        .btn-accept {
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            margin: 2px;
+        }
+
+        .btn-reject {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            margin: 2px;
+        }
+
+        .btn-start-meet {
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            margin: 2px;
+        }
+
+        .badge-status {
+            font-size: 0.85rem;
+        }
+
+        .table-responsive {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .card-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .active-patient {
+            border: 2px solid #1976D2 !important;
+            background-color: #e3f2fd !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(25, 118, 210, 0.2) !important;
+        }
+
+        .patient-card:hover {
+            background-color: #f8f9fa !important;
+            transform: translateY(-1px);
+            transition: all 0.3s ease;
+        }
+
+        .patient-item:hover {
+            background-color: #f8f9fa !important;
+            transform: translateY(-1px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo" class="logo">
+        <h3 style="color: black;">Doctor Panel</h3>
+        <a class="active" onclick="showSection('appointments')">📅 <span>Appointments</span></a>
+        <a onclick="showSection('patients')">👥 <span>Patients</span></a>
+        <a onclick="showSection('advice')">💬 <span>Give Advice</span></a>
+        <a href="{{ url_for('logout') }}" class="logout-btn">🚪 <span>Logout</span></a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="card-container">
+            <h2>Welcome Dr. {{ doctor_name }}</h2>
+
+            <!-- Appointments Section -->
+            <div id="appointments" class="section active">
+                <p class="section-title">🧑‍🤝‍🧑 Patient Appointments</p>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                {% if appointments %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Patient</th>
+                                <th>Email</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Symptoms</th>
+                                <th>Status</th>
+                                <th>Meet Link</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for app in appointments %}
+                            <tr>
+                                <td><strong>{{ app.patient_name }}</strong></td>
+                                <td>{{ app.patient_email }}</td>
+                                <td>{{ app.appointment_date }}</td>
+                                <td>{{ app.appointment_time }}</td>
+                                <td>
+                                    {% if app.symptoms %}
+                                        <span class="text-muted" title="{{ app.symptoms }}">
+                                            {{ app.symptoms[:30] }}{% if app.symptoms|length > 30 %}...{% endif %}
+                                        </span>
+                                    {% else %}
+                                        <em class="text-muted">No symptoms provided</em>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if app.status == 'Pending' %}
+                                        <span class="badge bg-warning text-dark badge-status">Pending</span>
+                                    {% elif app.status == 'Accepted' %}
+                                        <span class="badge bg-success badge-status">Accepted</span>
+                                    {% else %}
+                                        <span class="badge bg-danger badge-status">Rejected</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if app.meet_link %}
+                                        <a href="{{ app.meet_link }}" target="_blank" class="btn-meet btn-sm">
+                                            Join Meet
+                                        </a>
+                                    {% else %}
+                                        <em class="text-muted">—</em>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if app.status == 'Pending' %}
+                                        <div class="btn-group" role="group">
+                                            <form method="POST" action="{{ url_for('accept_appointment', appointment_id=app.id) }}" style="display:inline;">
+                                                <button type="submit" class="btn-accept btn-sm" 
+                                                        onclick="return confirm('Accept appointment with {{ app.patient_name }}?')">
+                                                    Accept
+                                                </button>
+                                            </form>
+                                            <form method="POST" action="{{ url_for('reject_appointment', appointment_id=app.id) }}" style="display:inline;">
+                                                <button type="submit" class="btn-reject btn-sm"
+                                                        onclick="return confirm('Reject appointment with {{ app.patient_name }}?')">
+                                                    Reject
+                                                </button>
+                                            </form>
+                                        </div>
+                                    {% else %}
+                                        <em class="text-muted">—</em>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <p class="text-muted">No appointments scheduled yet.</p>
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Patients Section -->
+            <div id="patients" class="section">
+                <p class="section-title">👥 All Patients</p>
+                
+                <div class="row">
+                    <!-- Patients List -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h6 class="mb-0">Patient List</h6>
+                            </div>
+                            <div class="card-body" style="max-height: 500px; overflow-y: auto;" id="patientsList">
+                                {% if patients %}
+                                    {% for patient in patients %}
+                                    <div class="patient-item card mb-2 p-3 patient-card" 
+                                        style="cursor: pointer; transition: all 0.3s;"
+                                        data-patient-id="{{ patient.id }}"
+                                        data-patient-name="{{ patient.name }}"
+                                        data-patient-email="{{ patient.email }}"
+                                        data-patient-age="{{ patient.age }}"
+                                        data-patient-phone="{{ patient.phone_number }}"
+                                        data-patient-dob="{{ patient.dob }}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="mb-1 fw-bold">{{ patient.name }}</h6>
+                                                <small class="text-muted">{{ patient.email }}</small>
+                                                <br>
+                                                <small class="text-info">Age: {{ patient.age }} | Phone: {{ patient.phone_number }}</small>
+                                            </div>
+                                            <span class="badge bg-info">View</span>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="text-muted text-center">No patients registered.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Patient Details -->
+                    <div class="col-md-8">
+                        <div class="card border-primary" id="patientDetailsMain" style="display: none;">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">👤 Patient Details</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <strong>Name:</strong>
+                                        <div id="patientName" class="fw-bold text-primary">-</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Age:</strong>
+                                        <div id="patientAge">-</div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <strong>Phone Number:</strong>
+                                        <div id="patientPhone">-</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Date of Birth:</strong>
+                                        <div id="patientDob">-</div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <strong>Email:</strong>
+                                        <div id="patientEmail" class="text-break">-</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Quick Actions -->
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <div class="d-grid gap-2 d-md-flex">
+                                            <button class="btn btn-success me-2" onclick="goToAdviceSection()">
+                                                💬 Give Medical Advice
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div class="card" id="noPatientSelected">
+                            <div class="card-body text-center py-5">
+                                <div class="mb-3">
+                                    <i class="fas fa-user-circle fa-3x text-muted"></i>
+                                </div>
+                                <h5 class="text-muted">Select a Patient</h5>
+                                <p class="text-muted">Click on any patient from the list to view their details</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        <!-- Give Advice Section -->
+            <div id="advice" class="section">
+                <p class="section-title">💡 Give Medical Advice</p>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            {% if 'advice' in message.lower() %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <form method="POST" action="{{ url_for('doctor_advice') }}">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Select Patient</label>
+                            <select name="patient_email" class="form-select" required>
+                                <option value="" disabled selected>Choose a patient...</option>
+                                {% for patient in patients_basic %}
+                                <option value="{{ patient.email }}">{{ patient.name }} ({{ patient.email }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Patient Condition</label>
+                            <input type="text" name="condition" class="form-control" placeholder="e.g., Fever, Cold, etc.">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Medical Advice & Prescription</label>
+                        <textarea name="advice" class="form-control" rows="5" 
+                                  placeholder="Enter detailed medical advice, prescription, dosage instructions, follow-up recommendations..."
+                                  required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 py-2">
+                        📤 Send Medical Advice
+                    </button>
+                </form>
+            </div>
+
+            
+                <!-- Recent Meetings -->
+                {% if meetings %}
+                <div class="mt-4">
+                    <h6>Recent Meetings</h6>
+                    <div class="list-group">
+                        {% for meeting in meetings %}
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>{{ meeting.patient_email }}</strong>
+                                    <br>
+                                    <small class="text-muted">{{ meeting.created_at }}</small>
+                                </div>
+                                <a href="{{ meeting.meet_link }}" target="_blank" class="btn-meet btn-sm">
+                                    Join Meet
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+<script>
+// Fixed showSection function
+function showSection(sectionId) {
+    console.log('Switching to:', sectionId);
+    
+    // Hide all sections
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Remove active from all sidebar links
+    const sidebarLinks = document.querySelectorAll('.sidebar a');
+    sidebarLinks.forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Show target section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+    
+    // Find and activate the clicked sidebar link
+    const clickedLink = event.currentTarget;
+    clickedLink.classList.add('active');
+}
+
+// Fixed patient selection function
+function selectPatient(id, name, email, age, phone, dob) {
+    console.log('🔍 SELECT PATIENT CALLED WITH:');
+    console.log('ID:', id, 'Type:', typeof id);
+    console.log('Name:', name, 'Type:', typeof name);
+    console.log('Email:', email, 'Type:', typeof email);
+    console.log('Age:', age, 'Type:', typeof age);
+    console.log('Phone:', phone, 'Type:', typeof phone);
+    console.log('DOB:', dob, 'Type:', typeof dob);
+    
+    // Update patient details
+    document.getElementById('patientName').textContent = name;
+    document.getElementById('patientAge').textContent = age;
+    document.getElementById('patientPhone').textContent = phone;
+    document.getElementById('patientDob').textContent = dob;
+    document.getElementById('patientEmail').textContent = email;
+    
+    // Show patient details card, hide empty state
+    document.getElementById('patientDetailsMain').style.display = 'block';
+    document.getElementById('noPatientSelected').style.display = 'none';
+    
+    // Remove active class from all patient items
+    document.querySelectorAll('.patient-card').forEach(card => {
+        card.classList.remove('active-patient');
+    });
+    
+    // Add active class to selected patient
+    const selectedCard = document.querySelector(`[data-patient-id="${id}"]`);
+    if (selectedCard) {
+        selectedCard.classList.add('active-patient');
+        console.log('✅ Active class added to patient card');
+    } else {
+        console.log('❌ Could not find patient card with ID:', id);
+    }
+    
+    // Store selected patient for other sections
+    sessionStorage.setItem('selectedPatient', JSON.stringify({
+        id: id,
+        name: name,
+        email: email,
+        age: age,
+        phone: phone,
+        dob: dob
+    }));
+    
+    console.log('✅ Patient stored in sessionStorage');
+}
+
+// Enhanced DOM loaded function with more debugging
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ DOM loaded - setting up event listeners');
+    
+    // Setup sidebar navigation with proper event handling
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        if (link.getAttribute('href') !== '{{ url_for("logout") }}') {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('onclick').match(/showSection\('([^']+)'\)/)[1];
+                showSection(targetId);
+            });
+        }
+    });
+    
+    // Debug: Check how many patient cards were found
+    const patientCards = document.querySelectorAll('.patient-card');
+    console.log(`🔍 Found ${patientCards.length} patient cards`);
+    
+    // Add click event listeners to all patient cards
+    patientCards.forEach((card, index) => {
+        console.log(`🔍 Setting up listener for patient card ${index}:`, card);
+        
+        card.addEventListener('click', function() {
+            console.log('🖱️ Patient card clicked:', this);
+            
+            const patientId = this.getAttribute('data-patient-id');
+            const patientName = this.getAttribute('data-patient-name');
+            const patientEmail = this.getAttribute('data-patient-email');
+            const patientAge = this.getAttribute('data-patient-age');
+            const patientPhone = this.getAttribute('data-patient-phone');
+            const patientDob = this.getAttribute('data-patient-dob');
+            
+            console.log('📋 Patient attributes extracted:');
+            console.log('data-patient-id:', patientId);
+            console.log('data-patient-name:', patientName);
+            console.log('data-patient-email:', patientEmail);
+            console.log('data-patient-age:', patientAge);
+            console.log('data-patient-phone:', patientPhone);
+            console.log('data-patient-dob:', patientDob);
+            
+            selectPatient(patientId, patientName, patientEmail, patientAge, patientPhone, patientDob);
+        });
+    });
+
+    // Debug session storage
+    const selectedPatient = sessionStorage.getItem('selectedPatient');
+    console.log('📦 Session storage selectedPatient:', selectedPatient);
+
+    // Check if there's a previously selected patient
+    if (selectedPatient) {
+        const patient = JSON.parse(selectedPatient);
+        console.log('🔄 Restoring previous patient selection:', patient);
+        selectPatient(patient.id, patient.name, patient.email, patient.age, patient.phone, patient.dob);
+    }
+
+    // Auto-dismiss alerts
+    setTimeout(function() {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            const bsAlert = new bootstrap.Alert(alert);
+            bsAlert.close();
+        });
+    }, 5000);
+});
+
+// Navigate to advice section with selected patient
+function goToAdviceSection() {
+    const selectedPatient = JSON.parse(sessionStorage.getItem('selectedPatient'));
+    if (selectedPatient) {
+        showSection('advice');
+        // Set the selected patient in the advice form
+        const selectElement = document.querySelector('select[name="patient_email"]');
+        if (selectElement) {
+            selectElement.value = selectedPatient.email;
+            selectElement.focus();
+        }
+    } else {
+        alert('Please select a patient first');
+    }
+}
+
+// Navigate to meeting section with selected patient
+function goToMeetingSection() {
+    const selectedPatient = JSON.parse(sessionStorage.getItem('selectedPatient'));
+    if (selectedPatient) {
+        showSection('meetings');
+        // Set the selected patient in the meeting form
+        const selectElement = document.querySelector('#meetings select[name="patient_email"]');
+        if (selectElement) {
+            selectElement.value = selectedPatient.email;
+            selectElement.focus();
+        }
+    } else {
+        alert('Please select a patient first');
+    }
+}
+</script>
+</body>
+</html>

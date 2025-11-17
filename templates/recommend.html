@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card-container">
+    <h2 class="text-center mb-4">💊 Alternate Medicine Recommendation</h2>
+
+    <!-- Search Form -->
+    <form method="POST" class="mb-4">
+        <div class="mb-3">
+            <label for="medicine_name" class="form-label">Enter Medicine Name</label>
+            <input type="text" id="medicine_name" name="medicine_name" class="form-control" 
+                placeholder="e.g., Paracetamol" value="{{ medicine_name or '' }}" required>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">Get Recommendation</button>
+    </form>
+
+    <!-- Recommendation Result -->
+    {% if medicine %}
+        <div class="card shadow p-4 mt-4">
+            <h4 class="text-primary text-center mb-3">✅ Best Alternate Found</h4>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Medicine Name</th>
+                    <td>{{ medicine["Medicine Name"] }}</td>
+                </tr>
+                <tr>
+                    <th>Composition</th>
+                    <td>{{ medicine["Composition"] }}</td>
+                </tr>
+                <tr>
+                    <th>Use Case</th>
+                    <td>{{ medicine["Use Case"] }}</td>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <td>{{ medicine["Type"] }}</td>
+                </tr>
+                <tr>
+                    <th>Drug Class</th>
+                    <td>{{ medicine["Drug Class"] }}</td>
+                </tr>
+            </table>
+        </div>
+    {% elif error %}
+        <div class="alert alert-warning mt-4 text-center">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <div class="mt-4 text-center">
+        <a href="{{ url_for('home') }}" class="btn btn-secondary">🔙 Back to Home</a>
+    </div>
+</div>
+
+<style>
+.card-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-width: 650px;
+    margin: 50px auto;
+}
+</style>
+{% endblock %}

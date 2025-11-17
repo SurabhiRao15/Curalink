@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Join Meeting</title>
+</head>
+<body>
+  <h2>Welcome, {{ user_name }}</h2>
+  <p>Joining meeting <strong>{{ meet_id }}</strong></p>
+
+  <video id="localVideo" autoplay playsinline muted></video>
+  <video id="remoteVideo" autoplay playsinline></video>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+    const socket = io();
+    const room = "{{ meet_id }}";
+    const user = "{{ user_name }}";
+    socket.emit("join_room", { room, user });
+
+    const pc = new RTCPeerConnection();
+    const localVideo = document.getElementById("localVideo");
+    const remoteVideo = document.getElementById("remoteVideo");
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+      localVideo.srcObject = stream;
+      stream.getTracks().forEach(track => pc.addTrack(track, stream));
+    });
+
+    pc.ontrack = event => remoteVideo.srcObject = event.streams[0];
+
+    socket.on("signal", async data => {
+      if (data.type === "offer") {
+        await pc.setRemoteDescription(new RTCSessionDescription(data));
+        const answer = await pc.createAnswer();
+        await pc.setLocalDescription(answer);
+        socket.emit("signal", { type: "answer", sdp: answer.sdp, room });
+      } else if (data.type === "candidate") {
+        await pc.addIceCandidate(new RTCIceCandidate(data.candidate));
+      }
+    });
+
+    pc.onicecandidate = event => {
+      if (event.candidate) socket.emit("signal", { type: "candidate", candidate: event.candidate, room });
+    };
+  </script>
+</body>
+</html>

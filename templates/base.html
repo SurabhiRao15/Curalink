@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Curalink{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: #ADD8E6;
+      color: white;
+      min-height: 100vh;
+      align-items: center;
+      padding: 20px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: flex;            /* add flex */
+      flex-direction: column;   /* stack items vertically */
+      align-items: center;
+    }
+
+    .sidebar img.logo {
+      width: 80px;
+      height: auto;
+      margin-bottom: 15px;
+      border: 2px solid white;
+    }
+
+
+    .sidebar h2 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: black;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 5px 0;
+    }
+
+    .sidebar a:hover {
+      background: #0B5ED7
+    }
+
+    .logout-btn {
+      margin-top: 20px;
+      /*background-color: #c0392b;*/
+      padding: 10px;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    /* Main content */
+    .content {
+      margin-left: 250px;
+      margin-right: 120px;
+      padding: 20px;
+      flex-grow: 1;
+      position: relative;
+    }
+
+    
+  </style>
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo" class="logo">
+    <h2 style="color: black;">Welcome to pharmacy  </h2>
+    <a href="{{ url_for('add_medicine') }}">Add Medicine</a>
+    <a href="{{ url_for('view_medicine') }}">View Medicine</a>
+    <a href="{{ url_for('view_orders') }}">View Orders</a>
+    <a href="{{ url_for('low_stock') }}">Low Stock Alert</a>
+    <a href="{{ url_for('expiry_alert') }}">Expiry Alert</a>
+    <a href="{{ url_for('recommend_alternate', medicine_name='Aspirin') }}">Alternate Medicine Recommendation</a>
+    <div class="logout-btn">
+      <a href="{{ url_for('logout') }}" style="color:black;">Logout</a>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    {% block content %}{% endblock %}
+  </div>
+
+</body>
+</html>

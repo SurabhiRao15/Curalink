@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Low Stock Medicines</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Medicine Name</th>
+            <th>Current Stock</th>
+            <th>Restock</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for med in medicines %}
+        <tr>
+            <td>{{ med[0] }}</td>
+            <td>{{ med[1] }}</td>
+            <td>{{ med[2] }}</td>
+            <td>
+                <form action="/restock/{{ med[0] }}" method="POST" class="d-flex">
+                    <input type="number" name="new_stock" placeholder="Enter new stock"
+                           class="form-control form-control-sm" required>
+                    <button type="submit" class="btn btn-success btn-sm ms-2">Restock</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
