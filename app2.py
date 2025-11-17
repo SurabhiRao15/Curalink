@@ -1179,7 +1179,11 @@ def recommend_alternate():
 def home():
     if "loggedin" not in session:
         return redirect(url_for("login"))
-    return render_template("home.html", role=session["role"])
+    return render_template("home.html", 
+                           role=session["role"],
+                           name=session.get("name"))
+
+
 
 @app.route("/patient/search_medicine", methods=["POST"])
 def search_medicine():
@@ -1317,22 +1321,24 @@ def add_medicine():
             stock = request.form["stock"]
             expiry_date = request.form["expiry"]
 
+            store_name = session.get("name")   # ✅ Get store name from session
+
             cur = get_cursor(dict=False)
             cur.execute(
-                "INSERT INTO medicines (name, stock, expiry) VALUES (%s, %s, %s)",
-                (name, stock, expiry_date)
+                "INSERT INTO medicines (name, stock, expiry, store) VALUES (%s, %s, %s, %s)",
+                (name, stock, expiry_date, store_name)   # ✅ Insert store name
             )
             db.commit()
             cur.close()
 
-            flash("Medicine added successfully!", "success")  # ✅ flash message
-            return redirect(url_for("view_medicine"))  # go back to medicine list
+            flash("Medicine added successfully!", "success")
+            return redirect(url_for("view_medicine"))
 
-        # For GET, just render the form
         return render_template("add_medicine.html")
 
     flash("Unauthorized access.", "danger")
     return redirect(url_for("home"))
+
 
 # View medicines
 @app.route('/view_medicine')

@@ -1,71 +1,75 @@
-{% extends "base.html" %}
-
-{% block title %}Home - Pharmacy Management System{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Home - Pharmacy Management System{%
+endblock %} {% block content %}
 <div class="container-fluid">
-    <div class="row">
-        <!-- Main Content -->
-        <div class="col-md-12">
-            <div id="content">
-                <div class="welcome-section">
-                    <h3>Welcome, {{ role|capitalize }}</h3>
-                    <p class="lead">Select an option from the menu on the left to manage your pharmacy operations.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<!-- Main Content -->
+		<div class="col-md-12">
+			<div id="content">
+				<div class="welcome-section">
+					<h3>Welcome, {{ name|capitalize }}</h3>
+					<p class="lead">
+						Select an option from the menu on the left to manage your pharmacy
+						operations.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Watermark Logo -->
 <div class="watermark-container">
-    <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Pharmacy Logo" class="watermark-logo">
+	<img
+		src="{{ url_for('static', filename='images/logo.jpg') }}"
+		alt="Pharmacy Logo"
+		class="watermark-logo"
+	/>
 </div>
 
 <style>
-.watermark-container {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    opacity: 0.15;
-    z-index: -1;
-    pointer-events: none;
-}
+	.watermark-container {
+		position: fixed;
+		bottom: 30px;
+		right: 30px;
+		opacity: 0.15;
+		z-index: -1;
+		pointer-events: none;
+	}
 
-.watermark-logo {
-    width: 150x;
-    height: auto;
-    max-width: 50%;
-}
+	.watermark-logo {
+		width: 150x;
+		height: auto;
+		max-width: 50%;
+	}
 
-.welcome-section {
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+	.welcome-section {
+		padding: 20px;
+		background: white;
+		border-radius: 8px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
 
-.card {
-    transition: transform 0.2s ease-in-out;
-}
+	.card {
+		transition: transform 0.2s ease-in-out;
+	}
 
-.card:hover {
-    transform: translateY(-2px);
-}
+	.card:hover {
+		transform: translateY(-2px);
+	}
 </style>
 
 <script>
-function loadPage(event, url) {
-    event.preventDefault();
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("content").innerHTML = data;
-        })
-        .catch(err => {
-            document.getElementById("content").innerHTML =
-                "<div class='alert alert-danger'>Error loading page. Please try again.</div>";
-        });
-}
+	function loadPage(event, url) {
+		event.preventDefault();
+		fetch(url)
+			.then((response) => response.text())
+			.then((data) => {
+				document.getElementById("content").innerHTML = data;
+			})
+			.catch((err) => {
+				document.getElementById("content").innerHTML =
+					"<div class='alert alert-danger'>Error loading page. Please try again.</div>";
+			});
+	}
 </script>
 {% endblock %}
