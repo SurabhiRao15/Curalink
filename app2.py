@@ -1343,11 +1343,22 @@ def add_medicine():
 # View medicines
 @app.route('/view_medicine')
 def view_medicine():
+    if "loggedin" not in session or session.get("role") != "store":
+        flash("Unauthorized access.", "danger")
+        return redirect(url_for("home"))
+
+    store_name = session.get("name")   # ✅ get the store name
+
     cur = get_cursor(dict=False)
-    cur.execute("SELECT id, name, stock, expiry FROM medicines")
+    cur.execute(
+        "SELECT id, name, stock, expiry, store FROM medicines WHERE store = %s",
+        (store_name,)
+    )
     medicines = cur.fetchall()
     cur.close()
+
     return render_template("view_medicine.html", medicines=medicines)
+
 
 # Edit medicine
 @app.route("/edit_medicine/<int:med_id>", methods=["GET", "POST"])
